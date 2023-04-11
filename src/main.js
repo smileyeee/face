@@ -15,6 +15,9 @@ Vue.use(VueRouter)
 import axios from 'axios';
 Vue.use(axios)
 
+// iconfont
+import './assets/iconfont/iconfont.css'
+
 Vue.config.productionTip = false
 
 new Vue({

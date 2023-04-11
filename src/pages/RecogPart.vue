@@ -3,12 +3,7 @@
   <div class="RecogPart">
     <el-row class="box" :gutter="20">
       <video id="videoCamera" class="canvas" :width="videoWidth" :height="videoHeight" autoPlay></video>
-      <!-- <canvas
-        id="canvasCamera"
-        class="canvas"
-        :width="videoWidth"
-        :height="videoHeight"
-      ></canvas> -->
+      <i class="iconfont icon-renlianshibie_o"></i>
     </el-row>
     <el-row slot="footer" :gutter="20">
       <el-button ref="btn" class="btn" @click="startRecog" icon="el-icon-upload2" size="big" type="primary"
@@ -200,6 +195,7 @@ export default {
         });
       }
     },
+
   },
   created() {
     this.getCompetence(); // 打开摄像头
@@ -243,5 +239,16 @@ export default {
 
 .canvas {
   border: 10px solid #e8e8e8;
+}
+
+.iconfont{
+  font-size: 500px;
+  color: rgba(0, 0, 0, 0.2);
+}
+
+i{
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
 }
 </style>
