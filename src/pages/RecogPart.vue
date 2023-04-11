@@ -15,6 +15,9 @@
         :loading="onLoading">
         {{ onLoading ? '识别中' : '开始识别' }}
       </el-button>
+
+      <el-button @click="showResult(true)">认证成功</el-button>
+      <el-button @click="showResult(false)">认证失败</el-button>
     </el-row>
   </div>
 </template>
@@ -178,7 +181,25 @@ export default {
       let img = this.getImg()
       let imgBase64 = img.replace(/^data:image\/(png|jpg);base64,/, "") // base64数据
       this.socket.send(imgBase64)
-    }
+    },
+    // 处理结果
+    showResult(value) {
+      if (value == true) {
+        // 认证成功
+        this.$alert("您好, XXX", "认证成功", {
+          confirmButtonText: "确定",
+          center: true
+          
+        });
+      } else {
+        // 认证失败, 可能是因为使用了不安全的图片，也可能是因为没有录入
+        this.$alert("可能是因为使用了不安全的图片，也可能是因为没有录入", "认证失败", {
+          confirmButtonText: "好吧",
+          center: true,
+          roundButton: true
+        });
+      }
+    },
   },
   created() {
     this.getCompetence(); // 打开摄像头
