@@ -29,7 +29,9 @@ export default {
       socket: null, // websocket对象
       result: "tzzz", // （预留）一个数据保存后端传递的结果
       onLoading: false, // 按钮的加载效果
-      timer:'',
+      timer: '',
+      base64: 'data:image/png;base64,', //人脸检测url
+      flag:-1
     };
   },
   methods: {
@@ -121,18 +123,15 @@ export default {
       // 从服务器接受到信息时的回调函数
       this.socket.onmessage = function (e) {
         console.log("收到服务器响应", e.data);
-        this.result = e.data.data; //
-        if(e.data.type==0)
-          if (e.data.flag == 1)
-          {
-            app.showResult(true)
-          }
-          else {
-            app.showResult(false)
-          }  
-        
-        clearInterval(app.timer)
-        console.log(app.timer)
+        app.result = e.data.name; //
+        app.base64 += e.data.img
+        app.flag = e.data.flag
+        if (this.flag >= 0)
+        {
+          app.showResult(this.flag)
+          clearInterval(app.timer)
+        }
+          
       };
 
       // 连接关闭后的回调函数
@@ -188,12 +187,24 @@ export default {
     },
     // 处理结果
     showResult(value) {
-      if (value == true) {
+      if (value == 1) {
         // 认证成功
-        this.$alert("您好, "+this.result, "认证成功", {
+        // this.$alert("您好, "+this.result, "认证成功", {
+        //   confirmButtonText: "确定",
+        //   center: true
+
+        // });
+        this.$alert('您好, '+this.result+' <br><img src=">' + this.base64 + ' "/>', '识别成功', {
           confirmButtonText: "确定",
-          center: true
-          
+          center: true,
+          dangerouslyUseHTMLString: true // 支持插入html标签
+        });
+      } else if (value == 0) {
+        // 认证失败, 可能是因为使用了不安全的图片，也可能是因为没有录入
+        this.$alert('您好, ' + this.result + '。未通过安全检测算法！！！' + ' <br><img src=">' + this.base64 + ' "/>', '识别成功', {
+          confirmButtonText: "确定",
+          center: true,
+          dangerouslyUseHTMLString: true // 支持插入html标签
         });
       } else {
         // 认证失败, 可能是因为使用了不安全的图片，也可能是因为没有录入
