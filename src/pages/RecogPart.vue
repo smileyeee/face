@@ -27,7 +27,7 @@ export default {
       videoWidth: 700,
       videoHeight: 600,
       socket: null, // websocket对象
-      result: null, // （预留）一个数据保存后端传递的结果
+      result: "tzzz", // （预留）一个数据保存后端传递的结果
       onLoading: false, // 按钮的加载效果
       timer:'',
     };
@@ -121,7 +121,16 @@ export default {
       // 从服务器接受到信息时的回调函数
       this.socket.onmessage = function (e) {
         console.log("收到服务器响应", e.data);
-        this.result = e; // 
+        this.result = e.data.data; //
+        if(e.data.type==0)
+          if (e.data.flag == 1)
+          {
+            app.showResult(true)
+          }
+          else {
+            app.showResult(false)
+          }  
+        
         clearInterval(app.timer)
         console.log(app.timer)
       };
@@ -181,7 +190,7 @@ export default {
     showResult(value) {
       if (value == true) {
         // 认证成功
-        this.$alert("您好, XXX", "认证成功", {
+        this.$alert("您好, "+this.result, "认证成功", {
           confirmButtonText: "确定",
           center: true
           
