@@ -11,9 +11,9 @@
       ></video>
       <i class="iconfont icon-renlianshibie_o"></i>
     </el-row>
-    <el-row>
+    <!-- <el-row>
       <img :src="base64" />
-    </el-row>
+    </el-row> -->
     <el-row slot="footer" :gutter="20">
       <el-button
         ref="btn"
@@ -41,7 +41,7 @@ export default {
       imgSrc: "",
       thisVideo: null, // 播放器窗口
       videoWidth: 700,
-      videoHeight: 600,
+      videoHeight: 500,
       socket: null, // websocket对象
       result: "tzzz", // （预留）一个数据保存后端传递的结果
       onLoading: false, // 按钮的加载效果
@@ -312,7 +312,8 @@ export default {
 }
 
 .canvas {
-  border: 10px solid #e8e8e8;
+  border: 5px solid rgba(0, 0, 0, .12);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
 }
 
 .iconfont {

@@ -39,6 +39,16 @@ export default {
     },
     methods: {
         onClose(){
+
+            if(this.imgSrc == ""){
+                this.$message({
+                    message: '您还没有拍摄任何图像！',
+                    type: 'warning',
+                    showClose: true
+                })
+                return false
+            }
+
             this.$emit('onClose', this.imgSrc);
             
         },

@@ -19,30 +19,42 @@
                 <i class="el-icon-menu"></i>人脸识别
               </el-menu-item>
             </router-link>
+            <router-link active-class="active" to="/compare">
+              <el-menu-item>
+                <i class="el-icon-menu"></i>照片对比
+              </el-menu-item>
+            </router-link>
           </el-menu>
             
         </el-aside>
         <!-- 主体 -->
         <el-main>
-          <router-view></router-view>
+          <router-view class="page"></router-view>
         </el-main>
       </el-container>
     </el-container>
 
-    
+    <vue-canvas-nest :config="config" :el="'.el-main'"></vue-canvas-nest>
   </div>
 </template>
 
 <script>
+import vueCanvasNest from "vue-canvas-nest";
 
 export default {
   name: "App",
   data(){
     return {
-      isCollapse: true
+      isCollapse: true,
+      config:{
+        color: "0, 0, 80",
+        opacity: 0.5,
+        zIndex: 2,
+        count: 50,
+      }
     }
   },
-  components: {},
+  components: {vueCanvasNest},
   
 };
 </script>
@@ -54,6 +66,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
+  overflow-y: hidden;
 }
 
 .el-container {
@@ -78,6 +91,11 @@ export default {
   color: #333;
 }
 
+.page{
+  position: relative;
+  z-index: 99
+}
+
 a{
   /* 去掉下划线 */
   text-decoration: none; 
@@ -85,5 +103,9 @@ a{
 
 .router-link-active {
   text-decoration: none;
+}
+
+vue-canvas-nest{
+  border: 0;
 }
 </style>
