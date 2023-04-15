@@ -131,10 +131,12 @@ export default {
     },
     // 和识别部分一样使用socket,没改动，谭总改一下
     showResult(value) {
-      if (value) {
+      if (value == 1) {
         this.$alert("是同一个人");
-      } else {
+      } else if (value == 0) {
         this.$alert("不是同一个人");
+      } else if (value == -1) {
+        this.$alert("图片不合法");
       }
     },
   },
