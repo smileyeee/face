@@ -11,10 +11,7 @@
       ></video>
       <i class="iconfont icon-renlianshibie_o"></i>
     </el-row>
-    <!-- <el-row>
-      <img :src="base64" />
-    </el-row> -->
-    <el-row slot="footer" :gutter="20">
+    <el-row slot="footer" class="footer" :gutter="20">
       <el-button
         ref="btn"
         class="btn"
@@ -175,6 +172,7 @@ export default {
         .getContext("2d")
         .drawImage(video, 0, 0, canvas.width, canvas.height);
       const img = canvas.toDataURL("image/png", 1);
+      console.log("getImg");
       return img;
     },
     // 识别，一直发送base64给后端，直到后端有回复
@@ -250,7 +248,7 @@ export default {
             ' <br><img src="' +
             this.base64 +
             ' "/>',
-          "识别成功",
+          "认证失败",
           {
             confirmButtonText: "确定",
             center: true,
@@ -287,12 +285,13 @@ export default {
   display: flex;
   text-align: center;
   align-content: center;
+  justify-items: center;
   flex-direction: column;
 }
 
 .box {
   margin-top: 50px;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
   width: 100%;
   display: flex;
   justify-content: space-evenly;
@@ -300,20 +299,20 @@ export default {
 }
 
 .footer {
-  height: 100px;
-  width: 300px;
-  display: flex;
+  height: 200px;
+  width: 100%;
+  /* display: flex; */
   justify-content: space-around;
   align-content: center;
 }
 
 .footer .btn {
-  margin: 0 300px;
+  margin: 0 auto;
 }
 
 .canvas {
-  border: 5px solid rgba(0, 0, 0, .12);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+  border: 5px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
 }
 
 .iconfont {
